@@ -24,7 +24,9 @@ tags:
 - name: States
   description: Manage States and Provinces.
 - name: GeographicRestrictions
-  description: Manage Geographic restrictions.  
+  description: Manage Geographic restrictions. 
+- name: GeographyImport
+  description: API used for importing geography data file.    
 - name: Miscellaneous
   description: API used by multiple functionality.   
 
@@ -913,7 +915,102 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'              
+                $ref: '#/components/schemas/ErrorResponse'   
+  /geographyImport:
+    get:
+      tags:
+      - GeographyImport
+      summary: Retrieve the details of most recent import.
+      operationId: getLatestGeographyImport
+      parameters:
+      - name: x-auth-token
+        in: header
+        description: authentication token
+        required: true
+        schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/GeographyImportDetail'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        504:
+          description: Application Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized  
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'                         
+    post:
+      tags:
+      - GeographyImport
+      summary: Add a new geography import.
+      operationId: addGeographyImport
+      parameters:
+      - name: x-auth-token
+        in: header
+        description: authentication token
+        required: true
+        schema:
+            type: string
+      requestBody:
+       description: import file details
+       content:
+         application/json:
+          schema:
+           $ref: '#/components/schemas/GeographyImportFileDetails'
+       required: true    
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeographyImportDetail'
+        400:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        504:
+          description: Application Timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized  
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
     ErrorResponse:
@@ -1049,11 +1146,14 @@ components:
         type: integer
        name:
         type: string
+        example: Alaska
        abbreviation:
-        type: string   
+        type: string  
+        example: AK 
        maxInterestRate:
         type: number
-        format: double      
+        format: double 
+        nullable: true     
     StateRestriction:
      type: object
      description: Restriction setup information about a state or province, contains 2 linkedhashmap of integer and city object
@@ -1157,6 +1257,79 @@ components:
         $ref: '#/components/schemas/AjCoreGeographyImport'  
        refId:
         type: integer
+    GeographyImportDetail:
+     type: object
+     properties:
+       geographyImportId:
+        type: integer
+       importStatus:
+        $ref: '#/components/schemas/ImportStatusType'
+       importStatusDateTime:
+        type: number
+        format: date-time
+       metadataVersion:
+        type: string
+       dateTimeGenerated:
+        type: string
+        format: date-time
+       productName:
+        type: string
+       productVersion:
+        type: string
+       description:
+        type: string
+       statistics:
+        type: array
+        items:
+          $ref: '#/components/schemas/GeographyImportStatistics'
+        uniqueItems: true
+         
+    ImportStatusType:
+     type: object
+     properties:
+       importStatusId:
+        type: integer
+        format: int32
+        example: 6
+       importStatusLabel:
+        type: string 
+        example: Validated without Errors
+    GeographyImportFileDetails:
+     type: object
+     properties:
+      fileName:
+        type: string
+        example: USGeography.xml
+      filePath:
+       type: string
+       description: full public path of import file, could be S3 url
+       example: http://s3.amazonaws.com/[bucket_name]/
+        
+    GeographyImportStatistics:
+     type: object
+     properties:
+       geographyType:
+        $ref: '#/components/schemas/GeographyType'   
+       removed:
+        type: integer
+        format: int32  
+       updated:
+        type: integer
+        format: int32  
+       added:
+        type: integer
+        format: int32  
+    GeographyType:
+     type: object
+     properties:
+       geographyTypeId:
+        type: integer
+        format: int32
+        example: 1
+       GeographyTypeLabel:
+        type: string 
+        example: Time Zones
+
     AjCoreGeographyImport:
      type: object
      properties:
