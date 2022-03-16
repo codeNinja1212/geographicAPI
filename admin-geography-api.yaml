@@ -54,6 +54,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -104,6 +110,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: Area code to be saved
        content:
@@ -158,6 +170,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -241,6 +259,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -286,6 +310,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: Area code to be saved
        content:
@@ -373,6 +403,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -418,6 +454,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: The postal code definition to add
        content:
@@ -476,6 +518,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -526,6 +574,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: The postal code to update
        content:
@@ -580,6 +634,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -621,6 +681,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       - name: order
         in: query
         description: authentication token
@@ -673,6 +739,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: Collection of States or Provinces to update
        content:
@@ -728,6 +800,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -773,6 +851,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: The geography restrictions to update.
        content:
@@ -828,6 +912,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       - name: stateId
         in: path
         description: The ID for the state or province
@@ -882,6 +972,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -929,6 +1025,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       responses:
         200:
           description: successful operation
@@ -973,6 +1075,12 @@ paths:
         required: true
         schema:
             type: string
+      - name: x-tenant
+        in: header
+        description: tenant id 
+        required: true
+        schema:
+            type: string      
       requestBody:
        description: import file details
        content:
@@ -1032,8 +1140,10 @@ components:
       properties:
         areaCodeId:
          type: integer
+         example: 5062
         code:
          type: string
+         example: 201
         country:
          $ref: '#/components/schemas/Country'
         state:
@@ -1042,25 +1152,31 @@ components:
          type: array
          items:
           type: string
+          example: Eastern Time (-5)
     AreaCodeCore:
      type: object
      properties:
         areaCodeId:
          type: integer
+         example: 5062
         code:
          type: string
+         example: 201
         country:
          $ref: '#/components/schemas/Country'
         states:
          type: array
          items:
           type: string
+          example: NEW JERSEY
         counties:
          type: array
          items:
           type: string
+          example: [Hudson, Bergen]
         cities:
          type: array
+         example: [Jersey City, Union City, Hoboken, Park Ridge,Franklin Lakes,Lyndhurst]
          items:
           type: string    
         timezones:
@@ -1104,12 +1220,16 @@ components:
        countryId:
         type: integer
         format: int32
+        example: 840
        alpha2:
         type: string
+        example: US
        alpha3:
         type: string
+        example: USA
        name:
         type: string
+        example: United States of America
     CountryRestriction:
      type: object
      properties:
@@ -1133,10 +1253,13 @@ components:
      properties:
        stateId:
         type: integer
+        example: 5055
        name:
         type: string
+        example: NEW JERSEY
        abbreviation:
         type: string
+        example: NJ
        country:
         $ref: '#/components/schemas/Country' 
     StateTO:
@@ -1191,17 +1314,24 @@ components:
      properties:
        timezoneId:
         type: integer
+        example: 15
        name:
         type: string
+        example: Eastern Time
        jvmTimezone:
         description: ID for the java timezone class
         type: string
+        example: US/Eastern
        abbrev:
         type: string
+        example: EST
        utcOffset:
         type: string
+        example: -18000000
        usesDST:
         type: boolean
+        default: true
+        example: true
        systemReferenceTimeOffset:
         type: integer
         format: int64
