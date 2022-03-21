@@ -13,8 +13,8 @@ externalDocs:
   description: Find out more about us
   url: http://example.com
 servers:
-- url: https://rcm-uat.example.com/rcm/v1
-- url: https://rcm.example.com/rcm/v1
+- url: https://rcm-uat.example.com/geography/0.1.0
+- url: https://rcm.example.com/geography/0.1.0
 
 tags:
 - name: AreaCode
@@ -34,7 +34,7 @@ security:
   - rcm_oauth2: []
 
 paths:
-  /areaCodes/{areaCodeId}:
+  /areacodes/{areaCodeId}:
     get:
       tags:
       - AreaCode
@@ -354,8 +354,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'        
-      
-  /postalCodes:
+  /postalcodes:
     get:
       tags:
       - PostalCode
@@ -498,7 +497,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /postalCode/{code}: 
+  /postalcodes/{code}: 
     get:
       tags:
       - PostalCode
@@ -1012,7 +1011,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'   
-  /geographyImport:
+  /geographyimports:
     get:
       tags:
       - GeographyImport
